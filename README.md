@@ -37,7 +37,7 @@ cd src
 
 To convert QGC plan to mavlink file, run this in your terminal
 ```
-python3 convert.py /flightplans/qgc.plan
+python3 convert.py /plans/qgc.plan
 ```
 
 <details>
@@ -76,7 +76,7 @@ python3 convert.py qgc.plan --out output.mavlink --version 120 --takeoff True
 
 To upload a .mavlink file to the drone and activate the GroundSDK flightplan, run this in your terminal
 ```
-python3 upload.py /flightplans/flightplan.mavlink
+python3 upload.py /plans/flightplan.mavlink
 ```
 
 ### Olympe Dockerfile 🐋
