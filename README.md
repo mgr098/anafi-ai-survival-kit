@@ -1,50 +1,96 @@
 # ANAFI AI Survival Kit ✈️
 
-Survival kit for the ANAFI Ai Parrot Drone, contains scripts and guides to manage GroundSDK Flightplans.
+Survival kit for the [ANAFI Ai Parrot Drone](https://www.parrot.com/en/drones/anafi-ai), contains scripts to manage [GroundSDK Flightplans](https://developer.parrot.com/docs/mavlink-flightplan/overview.html).
 
-## Download
+## Repository Structure 🗃️
+```
+├── src
+|   ├── /flightplans                Folder containing GroundSDK Flightplans
+|   ├── /olympe-scripts             Folder containing Parrot Olympe python scripts
+|   |   └── gimbal.py               Moves the ANAFI Ai gimbal    
+|   |   └── move.py                 Takeoff, move and land ANAFI Ai    
+|   ├── convert.py                  Converts QGC JSON .plan to .mavlink
+|   ├── Dockerfile                  Parrot Olympe Dockerfile
+|   ├── README.md                   Contains instructions on how to manage GroundSDK missions
+|   └── upload.py                   Uploads GroundSDK mission to ANAFI Ai and activates it    
+└── README.md                       This README
+```
+## Prerequisites ✔
+
+* [Anafi AI Drone](https://www.parrot.com/en/drones/anafi-ai)
+* [Python3](https://www.python.org/downloads)
+* [Docker](https://docs.docker.com/get-docker/)  
+* [QGroundControl (QGC)]() 
+* [Parrot Olympe](https://developer.parrot.com/docs/olympe/installation.html) (Recommended, but not required)
+
+## Setup ⚙️
+
+Clone the project and navigate to the /src folder
+```
+git clone https://github.com/mgr098/anafi-ai-survival-kit.git
+cd src
+```
+
+## Usage 🖥
+
+### Converter ♻️
+
+To convert QGC plan to mavlink file, run this in your terminal
+```
+python3 convert.py /flightplans/qgc.plan
+```
+
+<details>
+<summary> Optional Arguments </summary>
+<br>
 
 ```
-git clone anafi-ai-survival-kit
+python3 convert.py --help
+```
+Output
+```
+usage: convert.py [-h] [--out OUT] [--version VERSION]
+               [--takeoff TAKEOFF]
+               filepath
+
+Convert QGC .plan to .mavlink format
+
+positional arguments:
+  filepath           Usage: python3 convert.py </path/to/file/>
+
+optional arguments:
+  -h, --help         show this help message and exit
+  --out OUT          MAVlink filename
+  --version VERSION  MAVlink version
+  --takeoff TAKEOFF  Add takeoff at start of mavlink
+```
+Example usecase of optional arguments
+
+```
+python3 convert.py qgc.plan --out output.mavlink --version 120 --takeoff True
+```
+</details>
+
+
+### Upload ⬆️
+
+To upload a .mavlink file to the drone and activate the GroundSDK flightplan, run this in your terminal
+```
+python3 upload.py /flightplans/flightplan.mavlink
 ```
 
-## Creating Fligthplan
+### Olympe Dockerfile 🐋
 
-### Using QGC
+The Dockerfile creates a Docker image running Parrot Olympe. Run this in your terminal to build it
+```
+docker build -t olympe:latest .
+```
 
-### Freehand
+Run the olympe dockerfile 
 
-## Upload & Activate Flightplan
+```
+docker run --network host olympe:latest
+```
 
-ip address can either be: anafi-ai.local, 192.168.42.1.
-This guide will use 192.168.42.1 since it only refers to the real drone. The other ip will route to whichever anafi ai that is connected to the wifi whether its real or simulated.
 
-There are three ways to view flightplans
-
-1. go to website
-2. curl -X GET "http://anafi-ai.local/api/v1/upload/flightplans"
-3. parrot olympe
-
-View content
- curl "http://anafi-ai.local/api/v1/upload/<id>" --> remember to replace id with id flightplan id
-
-There are three ways to upload a flightplan
-
-1. go to http://192.168.42.1/#/ flightplans and click upload
-2. use curl -i -X PUT "http://anafi-ai.local/api/v1/upload/flightplan" --data-binary @"1-takeoff-land"
-3. use parrot olympe
-
-However, there are two ways of activating (starting) the flightplan
-
-1. use curl PUT /api/v1/mission/missions/?is_default=yes
-2. use parrot olympe
-
-Remember to reference the binary correctly.
-
-Note: Missions can't be uploaded twice. 
-
-There are two ways to delete flightplans
-
-1. turn drone off
-2.
 
