@@ -1,4 +1,5 @@
 import os
+from telnetlib import IP
 import time
 import argparse
 
@@ -6,7 +7,7 @@ import olympe
 from olympe.messages import gimbal
 
 TIMEOUT = 120
-REAL_IP = "176.75.109.161"
+REAL_IP = "192.168.42.1"
 
 DRONE_IP = os.environ.get("DRONE_IP", REAL_IP)
 DRONE_MEDIA_PORT = os.environ.get("DRONE_MEDIA_PORT", "80")
@@ -46,5 +47,5 @@ def main(drone_ip):
     drone.disconnect()
 
 if __name__ == "__main__":
-    args = parse_args()
-    main(args.ip)
+    # args = parse_args()
+    main(REAL_IP)
