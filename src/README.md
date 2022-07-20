@@ -105,3 +105,15 @@ There are two? ways of deleting a GroundSDK flithplan
 
 1. Restart the drone. Every flightplan is deleted everytime its reset
 2. Running ```curl -X DELETE "http://anafi-ai.local/api/v1/upload/flightplans/<id>"``` in your terminal (Note: This doesn't work)
+
+
+## Tips & Lessons learnt
+
+* Skycontroller must be turned off
+* Wifi connections can be wierd
+    * The wifi settings for the drone is configured to only repsond to the first connection
+* Mavlink files can be unpredictable
+* Drone must be X percent before doing stuff
+* The drone is pretty accurate (can be due to satelites)
+* We did have issues with callibration of Skycontroller
+* 4G worked, but for some reason it doesn't work in the university

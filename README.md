@@ -92,5 +92,7 @@ Run the olympe dockerfile
 docker run --network host olympe:latest
 ```
 
+## About
 
+This repository was used in the context of the Telenor Start5G, where one of the goals of the project was to view applications of 5G edge data centers. One of these applications was autonomously controlling drones over the 5G network from an edge data center. 
 
