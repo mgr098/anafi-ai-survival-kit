@@ -6,7 +6,7 @@ import argparse
 LATEST_VERSION = "120"
 TAKEOFF = 22
 WAYPOINT = 16
-DEFAULT_FILE_NAME = "flightplan.mavlink"
+DEFAULT_FILE_NAME = "1.mavlink"
 
 logger=logging.getLogger()
 logger.setLevel(logging.DEBUG)
@@ -91,7 +91,7 @@ class Mav():
                 params = ["Nan" if i is None else i for i in item["params"]]
 
                 mission_item = [
-                    i + 1, 0, 0, item["frame"], 
+                    i, 0, item["frame"], 
                     item["command"], *params, 1 if item ["autoContinue"] else 0
                 ]
 
@@ -99,7 +99,7 @@ class Mav():
             else:
                 logging.exception("Cannot convert type: complexItem")
                 sys.exit(0)
-        
+        # print(mission_items)
         return self.set_current_wp(mission_items)
 
     def format_items(self):
@@ -124,7 +124,7 @@ class Mav():
         """Finds and sets current waypoint flag"""
 
         for item in mission_items:
-            if item[4] in (WAYPOINT, TAKEOFF):
+            if item[3] in (WAYPOINT, TAKEOFF):
                 item[1] = 1
                 break
         
