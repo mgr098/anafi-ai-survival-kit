@@ -101,10 +101,24 @@ There are two ways of downloading a GroundSDK Flightplan from the drone
 
 ## Deleting Flightplan ❌
 
-There are two? ways of deleting a GroundSDK flithplan
+There are two? ways of deleting a GroundSDK flightplan
 
 1. Restart the drone. Every flightplan is deleted everytime its reset
 2. Running ```curl -X DELETE "http://anafi-ai.local/api/v1/upload/flightplans/<id>"``` in your terminal (Note: This doesn't work)
+
+## Deploying Flightplan in Environment
+
+1. Make sure drone and controller is properly charged
+2. Make sure drone is turned on, and placed in a safe and responsible location according to local drone regulations.
+3. Make sure controller is turned off, wifi/4G on ipad is turned off. Otherwise, the controller will take over connection to drone which won't allow you to send flightplans to it. The controller will act as a backup connection to the drone in case you lose control of the drone, it is therefore important that its set up correctly.
+4. Make sure you have a valid flightplan. It is recommended to test that the flightplan works in the simulator. While coordinates in the simulator won't work properly, if the drone takes off it is an indication that the format of the flightplan is valid.
+5. Connect to the drone wifi from your ubuntu computer, and run the upload.py script to the drone.
+
+This should tell the drone to execute the flightplan properly. 
+
+NOTE: if at any point you lose control of the drone, you can either use the wifi/4g on the controller to connect to it and fly it home. If that somehow does not work, the drone should return to home automatically when it reaches x percent battery.
+
+A trick we discovered when starting the plan, is that when you turn on the controller, the controller will connect to the drone and you will be able to view the video stream in real time either from wifi or 4G. This also allows you to control the drone, note that if you start moving around the controller the drone flightplan will stop.
 
 
 ## Tips & Lessons learnt
