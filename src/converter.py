@@ -3,7 +3,10 @@ import json
 import logging
 import argparse
 
-from config import LATEST_VERSION, DEFAULT_FILE_NAME, TAKEOFF, WAYPOINT
+LATEST_VERSION = "120"
+TAKEOFF = 22
+WAYPOINT = 16
+DEFAULT_FILE_NAME = "flightplan.mavlink"
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
@@ -96,7 +99,6 @@ class Mav():
         for i, item in enumerate(plan_items):
             frame = item["frame"]
             command = item["command"]
-
             auto_continue = 1 if item["autoContinue"] else 0
             parameters = ["Nan" if i is None else "{:.6f}".format(
                 i) for i in item["params"]]
